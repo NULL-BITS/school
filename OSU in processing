@@ -1,0 +1,52 @@
+int BallAmmount = 9; // choose how many objects of type BallAmmount
+float[] xBall = new float[BallAmmount]; // x pos Ball Array
+float[] yBall = new float[BallAmmount]; // y pos Ball array
+int[] BallSize = new int[BallAmmount]; // ballszie float array
+int a = 0; // reseter int
+int z = 0; //Ball Ident int
+int s = 0; // score int
+int c = 0; //color int
+
+
+
+
+public void settings(){ // setings
+size(800,800); // size
+for(int i = 0; i < xBall.length; i++){ // for loop for adding random values for x,ypos for ball using a for loop for everything
+  xBall[i] = random(width);
+  yBall[i] = random(800);
+  BallSize[i] = 50;
+
+  }
+  c = (int)random(0,3); //random number for the choosen color, will change when a = 9 leads to a refresh by calling settings();
+  println(c); // debugging
+}
+
+
+
+void draw(){ // draw
+  
+  background(255); // white bg
+  fill(0); // make score black
+  text( s, 30, 30); // score gets updated through draw 60 times a second
+  for(z = 0; z < BallAmmount; z++){ // for loop for ball drawing
+    if(c == 0){fill(255,0,0);}      // 
+        if(c == 1){fill(0,255,0);}  // 
+            if(c == 2){fill(0,0,255);}  // two lines above plus this line = index what color be used with int c
+    ellipse(xBall[z],yBall[z],BallSize[z], BallSize[z]);
+    }
+for(int i = 0; i < BallAmmount; i++){ // for loop for using a for loop here :)
+if(dist(mouseX, mouseY, xBall[i], yBall[i]) < 25 && i == a){ // collision detect and detect if ball can be removed with his actual number
+  BallSize[i] = 0; //the ball get sqeezed till it isnt visible anymore 
+  a++; // set reset counter one up
+  s++; // sorce plus ##nice
+      }else{  //else
+      fill(255); //white text
+      text(i + 1, xBall[i], yBall[i]); //text for ballnumber
+      }
+   }
+   if(a == BallAmmount){ //reset
+   a = 0; // sets a to 0 so the reset counter is again zero
+   settings();
+ }
+}
